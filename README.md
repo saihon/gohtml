@@ -38,6 +38,15 @@ func main() {
     anchors := document.Anchors()
 
 
+    // alias
+    // GetElementsByTagName  : GetByTag
+    // GetElementsByName     : GetByName
+    // GetElementsByClassName: GetByClass
+    // GetElementById        : GetById
+    // QuerySelectorAll      : QueryAll
+    // QuerySelector         : Query
+
+
     element := document.GetElementById("id")
     element = document.QuerySelector("div > p")
     // Should be verified
@@ -73,14 +82,10 @@ func main() {
     innerhtml := element.InnerHTML()
 
 
-
-    // alias
-    // GetElementsByTagName  : GetByTag
-    // GetElementsByName     : GetByName
-    // GetElementsByClassName: GetByClass
-    // GetElementById        : GetById
-    // QuerySelectorAll      : QueryAll
-    // QuerySelector         : Query
+    element.HasAttribute("key")
+    element.GetAttribute("key")
+    element.SetAttribute("key", "value")
+    element.RemoveAttribute("key")
 }
 
 
