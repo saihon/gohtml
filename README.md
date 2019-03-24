@@ -1,13 +1,15 @@
 ## saihon
 
-HTML parser with JavaScript-like method name.
+Go package. Traverse and editing for parsed HTML(DOM tree) with JavaScript-like method name.
+
+<br/>
 
 This package is using the following packages:
 - [golang.org/x/net/html](https://golang.org/x/net/html)
 - [github.com/andybalholm/cascadia](https://github.com/andybalholm/cascadia)
 
-
-
+<br>
+<br>
 
 ## Usage
 
@@ -28,7 +30,7 @@ func main() {
     documentElement := document.DocumentElement()
     all     := document.All()
     body    := document.Body()
-    title   := document.Title() // string
+    title   := document.Title() // title string
     head    := document.Head()
     form    := document.Form()
     images  := document.Images()
@@ -36,29 +38,22 @@ func main() {
     anchors := document.Anchors()
 
 
-    // alias
-    // GetElementsByTagName  : GetByTag
-    // GetElementsByName     : GetByName
-    // GetElementsByClassName: GetByClass
-    // GetElementById        : GetById
-    // QuerySelectorAll      : QueryAll
-    // QuerySelector         : Query
-
-
     element := document.GetElementById("id")
     element = document.QuerySelector("div > p")
-    // Should be verified
+    // should be verified
     if element != nil {
         textcontent := element.TextContent()
         // ...
     }
 
 
+    // returns collection
     elements := document.GetElementsByClassName("class")
     elements = document.QuerySelectorAll("div > p")
     elements = document.GetElementsByName("name")
     elements = document.GetElementsByTagName("p")
-    // loop
+
+    // each element
     for i := 0; i < elements.Length(); i++ {
         outerhtml := elements.Get(i).OuterHTML()
         // ...
@@ -80,8 +75,8 @@ func main() {
     innerhtml := element.InnerHTML()
 
 
-    element.HasAttribute("key")
-    element.GetAttribute("key")
+    id := element.HasAttribute("id")
+    classname := element.GetAttribute("class")
     element.SetAttribute("key", "value")
     element.RemoveAttribute("key")
 }
@@ -89,8 +84,27 @@ func main() {
 
 ```
 
+<br>
+
+#### alias
+
+```go
+
+    GetByTag  : GetElementsByTagName
+    GetByName : GetElementsByName
+    GetByClass: GetElementsByClassName
+    GetById   : GetElementById
+    QueryAll  : QuerySelectorAll
+    Query     : QuerySelector
+
+```
+
+<br>
+
 
 ## License
 
-[MIT](https://github.com/saihon/saihon/blob/master/LICENSE)
+[MIT License](https://github.com/saihon/saihon/blob/master/LICENSE)
 
+<br>
+<br>

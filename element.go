@@ -99,7 +99,7 @@ func (e Element) InnerHTML(text ...string) string {
 	return utils.Html(e.Node, text...)
 }
 
-// OuterHTML including HTML of self
+// OuterHTML include element itself
 func (e Element) OuterHTML() string {
 	return utils.HTML(e.Node)
 }
@@ -168,7 +168,7 @@ func (e Element) CloneNode() *Element {
 	return nil
 }
 
-// Remove remove a element self
+// Remove
 func (e Element) Remove() {
 	utils.Remove(e.Node)
 }
@@ -178,7 +178,7 @@ func (e Element) RemoveChild(c *Element) {
 	e.Node.RemoveChild(c.Node)
 }
 
-// ReplaceChild returns a old element. an error internally if it is nil.
+// ReplaceChild returns a old element. panic if an error
 func (e Element) ReplaceChild(newElement, oldElement *Element) *Element {
 	n := utils.Replace(e.Node, newElement.Node, oldElement.Node)
 	return &Element{n}
@@ -241,7 +241,7 @@ func (e Element) InnerText(text ...string) string {
 	return utils.Text(e.Node, text...)
 }
 
-// TagName returns value is uppercase
+// TagName returns string as uppercase
 func (e Element) TagName() string {
 	if e.Node.Type == html.ElementNode {
 		return strings.ToUpper(e.Node.Data)
@@ -249,7 +249,7 @@ func (e Element) TagName() string {
 	return ""
 }
 
-// LocalName returns value is lowercase
+// LocalName returns string as lowercase
 func (e Element) LocalName() string {
 	if e.Node.Type == html.ElementNode {
 		return strings.ToLower(e.Node.Data)

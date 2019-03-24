@@ -1,10 +1,10 @@
 package find
 
 import (
-	"github.com/andybalholm/cascadia"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 
+	"github.com/andybalholm/cascadia"
 	"github.com/saihon/saihon/attr"
 	"github.com/saihon/saihon/utils"
 )

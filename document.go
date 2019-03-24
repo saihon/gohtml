@@ -98,7 +98,7 @@ func (d Document) Images() Collection {
 	return c
 }
 
-// Links get all of "A" and "AREA" element who has "href" attribute
+// Links get all of "A" and "AREA" element these has "href" attribute
 func (d Document) Links() Collection {
 	var m find.Matcher = func(n *html.Node) bool {
 		return utils.IsElement(n) && (n.DataAtom == atom.A || n.DataAtom == atom.Area) && attr.Has(n, "href")
@@ -108,7 +108,7 @@ func (d Document) Links() Collection {
 	return c
 }
 
-// Anchors get all of "A" element who has "name" attribute
+// Anchors get all of "A" element these has "name" attribute
 func (d Document) Anchors() Collection {
 	var m find.Matcher = func(n *html.Node) bool {
 		return utils.IsElement(n) && n.DataAtom == atom.A && attr.Has(n, "name")

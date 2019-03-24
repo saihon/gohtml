@@ -81,27 +81,12 @@ func Text(n *html.Node, text ...string) string {
 		return buf.String()
 	}
 
+	Empty(n)
+
 	s := strings.Join(text, " ")
-	if n.Type == html.TextNode {
-		n.Data = s
-		return s
-	}
-
-	if c := n.FirstChild; c != nil {
-		if c.Type == html.TextNode {
-			c.Data = s
-		} else {
-			n.InsertBefore(&html.Node{
-				Type: html.TextNode,
-				Data: html.EscapeString(s),
-			}, c)
-		}
-		return s
-	}
-
 	n.AppendChild(&html.Node{
 		Type: html.TextNode,
-		Data: html.EscapeString(s),
+		Data: s,
 	})
 	return s
 }
@@ -203,6 +188,13 @@ func Clone(n *html.Node) *html.Node {
 func Remove(n *html.Node) {
 	if p := Parent(n); p != nil {
 		p.RemoveChild(n)
+	}
+}
+
+// Empty
+func Empty(n *html.Node) {
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		n.RemoveChild(c)
 	}
 }
 

@@ -93,7 +93,7 @@ func TestText(t *testing.T) {
 	}
 
 	// set
-	expect = "foo bar baz"
+	expect = "<p>foo bar baz</p>"
 	Text(body, expect)
 	actual = body.FirstChild.Data
 	if actual != expect {
