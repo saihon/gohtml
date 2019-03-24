@@ -1,13 +1,11 @@
 ## saihon
 
-[net/html]:[https://golang.org/x/net/html]
-[andybalholm/cascadia]:[https://github.com/andybalholm/cascadia]
-
 HTML parser with JavaScript-like method name.
 
 This package is using the following packages:
-- [golang.org/x/net/html][net/html]
-- [github.com/andybalholm/cascadia][andybalholm/cascadia].
+- [golang.org/x/net/html](https://golang.org/x/net/html)
+- [github.com/andybalholm/cascadia](https://github.com/andybalholm/cascadia)
+
 
 
 
