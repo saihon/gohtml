@@ -12,12 +12,15 @@ func (e Collection) Length() int {
 	return len(e.Nodes)
 }
 
-// Get get Element by index from Collection
+// Get returns the "*Element" given index
 func (e Collection) Get(index int) *Element {
 	return &Element{e.Nodes[index]}
 }
 
-// Enumerator
+// Enumerator can calls with for..range
+// for element := range elements.Enumerator() {
+//		element...
+// }
 func (e Collection) Enumerator() chan *Element {
 	ch := make(chan *Element, 1)
 	go e.enumeration(ch)

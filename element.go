@@ -15,35 +15,35 @@ type Element struct {
 	Node *html.Node
 }
 
-// GetElementsByTagName
+// GetElementsByTagName find the all elements have specified tagname
 func (e Element) GetElementsByTagName(tagname string) Collection {
 	var c Collection
 	c.Nodes = find.ByTag(e.Node, tagname)
 	return c
 }
 
-// GetElementsByName
+// GetElementsByName find the all elements have specified name
 func (e Element) GetElementsByName(name string) Collection {
 	var c Collection
 	c.Nodes = find.ByName(e.Node, name)
 	return c
 }
 
-// GetElementsByClassName
+// GetElementsByClassName find the all elements have specified classname
 func (e Element) GetElementsByClassName(classname string) Collection {
 	var c Collection
 	c.Nodes = find.ByClass(e.Node, classname)
 	return c
 }
 
-// QuerySelectorAll
+// QuerySelectorAll find the all elements have specified css selector
 func (e Element) QuerySelectorAll(s string) Collection {
 	var c Collection
 	c.Nodes = find.QueryAll(e.Node, s)
 	return c
 }
 
-// GetElementById
+// GetElementById find a element have specified id
 func (e Element) GetElementById(id string) *Element {
 	if n := find.ById(e.Node, id); n != nil {
 		return &Element{Node: n}
@@ -51,7 +51,7 @@ func (e Element) GetElementById(id string) *Element {
 	return nil
 }
 
-// QuerySelector
+// QuerySelector find a element have specified css selector
 func (e Element) QuerySelector(s string) *Element {
 	if n := find.Query(e.Node, s); n != nil {
 		return &Element{Node: n}
@@ -59,37 +59,37 @@ func (e Element) QuerySelector(s string) *Element {
 	return nil
 }
 
-// FirstChild
+// FirstChild returns first child node
 func (e Element) FirstChild() *html.Node {
 	return e.Node.FirstChild
 }
 
-// LastChild
+// LastChild returns last child node
 func (e Element) LastChild() *html.Node {
 	return e.Node.LastChild
 }
 
-// NextSibling
+// NextSibling returns next sibling node
 func (e Element) NextSibling() *html.Node {
 	return e.Node.NextSibling
 }
 
-// PreviousSibling
+// PreviousSibling returns previous sibling node
 func (e Element) PreviousSibling() *html.Node {
 	return e.Node.PrevSibling
 }
 
-// ParentNode
+// ParentNode returns parent node
 func (e Element) ParentNode() *html.Node {
 	return e.Node.Parent
 }
 
-// ChildNodes
+// ChildNodes returns all of child nodes
 func (e Element) ChildNodes() []*html.Node {
 	return utils.ChildNodes(e.Node)
 }
 
-// HasChildNodes
+// HasChildNodes  returns true if "Document" has node
 func (e Element) HasChildNodes() bool {
 	return e.Node.FirstChild != nil
 }
@@ -104,7 +104,7 @@ func (e Element) OuterHTML() string {
 	return utils.HTML(e.Node)
 }
 
-// Children
+// Children returns all of the child html.ElementNode as the "Collection"
 func (e Element) Children() Collection {
 	var nodes []*html.Node
 	for c := e.Node.FirstChild; c != nil; c = c.NextSibling {
@@ -115,7 +115,7 @@ func (e Element) Children() Collection {
 	return Collection{Nodes: nodes}
 }
 
-// ParentElement
+// ParentElement returns parent node as the "*Element"
 func (e Element) ParentElement() *Element {
 	if n := utils.Parent(e.Node); n != nil {
 		return &Element{n}
@@ -123,7 +123,7 @@ func (e Element) ParentElement() *Element {
 	return nil
 }
 
-// FirstElementChild
+// FirstElementChild returns first html.ElementNode as the "*Element"
 func (e Element) FirstElementChild() *Element {
 	if n := utils.First(e.Node); n != nil {
 		return &Element{Node: n}
@@ -131,12 +131,12 @@ func (e Element) FirstElementChild() *Element {
 	return nil
 }
 
-// ChildElementCount
+// ChildElementCount returns the number of html.ElementNode
 func (e Element) ChildElementCount() int {
 	return utils.Count(e.Node)
 }
 
-// NextElementSibling
+// NextElementSibling returns next html.ElementNode as the "*Element"
 func (e Element) NextElementSibling() *Element {
 	if n := utils.Next(e.Node); n != nil {
 		return &Element{Node: n}
@@ -144,7 +144,7 @@ func (e Element) NextElementSibling() *Element {
 	return nil
 }
 
-// PreviousElementSibling
+// PreviousElementSibling returns previous html.ElementNode as the "*Element"
 func (e Element) PreviousElementSibling() *Element {
 	if n := utils.Prev(e.Node); n != nil {
 		return &Element{Node: n}
@@ -152,7 +152,7 @@ func (e Element) PreviousElementSibling() *Element {
 	return nil
 }
 
-// LastElementChild
+// LastElementChild returns last html.ElementNode as the "*Element"
 func (e Element) LastElementChild() *Element {
 	if n := utils.Last(e.Node); n != nil {
 		return &Element{Node: n}
@@ -160,7 +160,7 @@ func (e Element) LastElementChild() *Element {
 	return nil
 }
 
-// CloneNode
+// CloneNode clone "*Element"
 func (e Element) CloneNode() *Element {
 	if n := utils.Clone(e.Node); n != nil {
 		return &Element{n}
@@ -168,12 +168,13 @@ func (e Element) CloneNode() *Element {
 	return nil
 }
 
-// Remove
+// Remove delete the Element itself
 func (e Element) Remove() {
 	utils.Remove(e.Node)
 }
 
-// RemoveChild
+// RemoveChild remove a given the "*Element"
+// specified c is must be the child of "Element"
 func (e Element) RemoveChild(c *Element) {
 	e.Node.RemoveChild(c.Node)
 }
@@ -184,12 +185,12 @@ func (e Element) ReplaceChild(newElement, oldElement *Element) *Element {
 	return &Element{n}
 }
 
-// AppendChild
+// AppendChild append "*Element" as a last child
 func (e Element) AppendChild(c *Element) {
 	e.Node.AppendChild(c.Node)
 }
 
-// InsertBefore
+// InsertBefore inserts a newElement before the oldElement as a child of a "Element".
 func (e Element) InsertBefore(newChild, oldChild *Element) {
 	e.Node.InsertBefore(newChild.Node, oldChild.Node)
 }
@@ -201,6 +202,13 @@ const (
 	Afterbegin  = Position(utils.Afterbegin)
 	Beforeend   = Position(utils.Beforeend)
 	Afterend    = Position(utils.Afterend)
+	// <!-- beforebegin -->
+	// <p>
+	//   <!-- afterbegin -->
+	//   childnodes
+	//   <!-- beforeend -->
+	// </p>
+	// <!-- afterend -->
 )
 
 // InsertAdjacentHTML
@@ -236,7 +244,7 @@ func (e Element) TextContent(text ...string) string {
 	return utils.Text(e.Node, text...)
 }
 
-// InnerText
+// InnerText same as above
 func (e Element) InnerText(text ...string) string {
 	return utils.Text(e.Node, text...)
 }
@@ -257,12 +265,12 @@ func (e Element) LocalName() string {
 	return ""
 }
 
-// Id
+// Id get id
 func (e Element) Id() string {
 	return attr.Get(e.Node, "id")
 }
 
-// ClassName
+// ClassName get class name
 func (e Element) ClassName() string {
 	return attr.Get(e.Node, "class")
 }
