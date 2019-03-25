@@ -152,6 +152,17 @@ func Next(n *html.Node) *html.Node {
 	return nil
 }
 
+// NextAll returns all next sibling hhtml.ElementNode
+func NextAll(n *html.Node) []*html.Node {
+	var nodes []*html.Node
+	for c := n.NextSibling; c != nil; c = c.NextSibling {
+		if IsElement(c) {
+			nodes = append(nodes, c)
+		}
+	}
+	return nodes
+}
+
 // Prev previousElementSibling. returns node type is html.ElementNode
 func Prev(n *html.Node) *html.Node {
 	for c := n.PrevSibling; c != nil; c = c.PrevSibling {
@@ -162,6 +173,17 @@ func Prev(n *html.Node) *html.Node {
 	return nil
 }
 
+// PrevAll returns all previous sibling html.ElementNode
+func PrevAll(n *html.Node) []*html.Node {
+	var nodes []*html.Node
+	for c := n.PrevSibling; c != nil; c = c.PrevSibling {
+		if IsElement(c) {
+			nodes = append(nodes, c)
+		}
+	}
+	return nodes
+}
+
 // Last lastElementChild. returns node type is html.ElementNode
 func Last(n *html.Node) *html.Node {
 	for c := n.LastChild; c != nil; c = c.PrevSibling {
@@ -170,6 +192,18 @@ func Last(n *html.Node) *html.Node {
 		}
 	}
 	return nil
+}
+
+// Sibling returns all sibling html.ElementNode
+func Sibling(n *html.Node) []*html.Node {
+	var nodes []*html.Node
+	p := n.Parent
+	for c := p.FirstChild; c != nil; c = c.NextSibling {
+		if IsElement(c) {
+			nodes = append(nodes, c)
+		}
+	}
+	return nodes
 }
 
 // Clone cloneNode
@@ -193,7 +227,7 @@ func Remove(n *html.Node) {
 
 // Empty
 func Empty(n *html.Node) {
-	for c := n.FirstChild; c != nil; c = c.NextSibling {
+	for c := n.LastChild; c != nil; c = n.LastChild {
 		n.RemoveChild(c)
 	}
 }
@@ -274,22 +308,22 @@ func Insert(position Position, pivot, n *html.Node) error {
 	return nil
 }
 
-// InsertBB insert before begin
-func InsertBB(pivot, n *html.Node) error {
+// Before insert before begin
+func Before(pivot, n *html.Node) error {
 	return Insert(Beforebegin, pivot, n)
 }
 
-// InsertAB insert after begin
-func InsertAB(pivot, n *html.Node) error {
+// Prepend insert after begin
+func Prepend(pivot, n *html.Node) error {
 	return Insert(Afterbegin, pivot, n)
 }
 
-// InsertBE insert before end
-func InsertBE(pivot, n *html.Node) error {
-	return Insert(Beforeend, pivot, n)
+// Append
+func Append(p, c *html.Node) {
+	p.AppendChild(c)
 }
 
-// InsertAE insert after end
-func InsertAE(pivot, n *html.Node) error {
+// After insert after end
+func After(pivot, n *html.Node) error {
 	return Insert(Afterend, pivot, n)
 }

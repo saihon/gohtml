@@ -220,6 +220,22 @@ func TestRemove(t *testing.T) {
 	}
 }
 
+func TestEmpty(t *testing.T) {
+	s := `<html><head></head><body><p></p><div></div><span></span></body></html>`
+
+	doc, _ := html.Parse(strings.NewReader(s))
+	body, err := getbody(doc)
+	if err != nil {
+		t.Errorf("\n%v\n", err)
+		return
+	}
+
+	Empty(body)
+	if body.FirstChild != nil || body.LastChild != nil {
+		t.Errorf("\nbody is should not have node\n")
+	}
+}
+
 func TestReplace(t *testing.T) {
 	s := `<html><head></head><body><p>old element</p></body></html>`
 
