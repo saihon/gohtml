@@ -55,8 +55,8 @@ func Example() {
 	for _, v := range []string{"foo", "bar", "baz"} {
 		p := saihon.CreateElement("p")
 		t := saihon.CreateTextNode(v)
-		p.AppendChild(p)
-		body.AppendChild(t)
+		p.AppendChild(t)
+		body.AppendChild(p)
 	}
 
 	collection := body.GetElementsByTagName("p")
