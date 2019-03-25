@@ -2,6 +2,7 @@ package attr
 
 import (
 	"reflect"
+	"strings"
 
 	"golang.org/x/net/html"
 )
@@ -119,12 +120,8 @@ func GetNodeNS(n *html.Node, namespace, key string) (html.Attribute, bool) {
 func Set(n *html.Node, key, value string) {
 	i := IndexOf(n, key)
 	if i >= 0 {
-		// inherit a namespace if already there
-		n.Attr[i] = html.Attribute{
-			Key:       key,
-			Val:       value,
-			Namespace: n.Attr[i].Namespace,
-		}
+		// inherit a namespace if already set
+		n.Attr[i].Val = value
 		return
 	}
 	n.Attr = append(n.Attr, html.Attribute{Key: key, Val: value})
@@ -188,4 +185,93 @@ func RemoveNS(n *html.Node, namespace, key string) {
 	if i >= 0 {
 		n.Attr = append(n.Attr[:i], n.Attr[i+1:]...)
 	}
+}
+
+// Attr
+// if given a 1 argument: treat as the "Key" and returns it value. same as Get
+// if given a 2 argument: treat as the "Key" and "Value",
+//                        sets these as the attribute. same as Set
+// if given a 3 argument: treat as the "Namespace", "Key" and "Value",
+//                        sets these as the attribute. same as SetNS
+func Attr(n *html.Node, a ...string) string {
+	switch len(a) {
+	case 1:
+		return Get(n, a[0])
+	case 2:
+		Set(n, a[0], a[1])
+	case 3:
+		SetNS(n, a[0], a[1], a[2])
+	}
+	return ""
+}
+
+// AddClass
+func AddClass(n *html.Node, classname string) {
+	i := IndexOf(n, "class")
+	if i == -1 {
+		n.Attr = append(n.Attr, html.Attribute{Key: "class", Val: classname})
+		return
+	}
+
+	if hasClass(n.Attr[i].Val, classname) {
+		return
+	}
+
+	n.Attr[i].Val = strings.TrimSpace(n.Attr[i].Val) + " " + classname
+}
+
+func hasClass(value, classname string) bool {
+	for _, v := range strings.Split(value, " ") {
+		if v == classname {
+			return true
+		}
+	}
+	return false
+}
+
+// HasClass
+func HasClass(n *html.Node, classname string) bool {
+	i := IndexOf(n, "class")
+	if i == -1 {
+		return false
+	}
+
+	return hasClass(n.Attr[i].Val, classname)
+}
+
+func removeClass(value, classname string) string {
+	a := strings.Split(value, " ")
+	for i := 0; i < len(a); i++ {
+		if a[i] == classname {
+			a = append(a[:i], a[i+1:]...)
+			break
+		}
+	}
+	return strings.Join(a, " ")
+}
+
+// RemoveClass
+func RemoveClass(n *html.Node, classname string) {
+	i := IndexOf(n, "class")
+	if i == -1 {
+		return
+	}
+
+	n.Attr[i].Val = removeClass(n.Attr[i].Val, classname)
+}
+
+// ToggleClass
+func ToggleClass(n *html.Node, classname string) {
+	i := IndexOf(n, "class")
+	if i == -1 {
+		n.Attr = append(n.Attr, html.Attribute{Key: "class", Val: classname})
+		return
+	}
+
+	if hasClass(n.Attr[i].Val, classname) {
+		n.Attr[i].Val = removeClass(n.Attr[i].Val, classname)
+		return
+	}
+
+	n.Attr[i].Val = strings.TrimSpace(n.Attr[i].Val) + " " + classname
 }
