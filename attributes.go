@@ -9,57 +9,63 @@ import (
 	"github.com/saihon/saihon/attr"
 )
 
-// Attributes
+// Attributes returns all attributes on the element
 func (e Element) Attributes() []html.Attribute {
 	return e.Node.Attr
 }
 
-// GetAttribute
+// GetAttribute returns the value of a specified attribute
 func (e Element) GetAttribute(key string) string {
 	return attr.Get(e.Node, key)
 }
 
-// GetAttributeNS
+// GetAttributeNS returns the value of the attribute
+// with the specified namespace and key
 func (e Element) GetAttributeNS(namespace, key string) string {
 	return attr.GetNS(e.Node, namespace, key)
 }
 
-// GetAttributeNode
+// GetAttributeNode returns the attribute, and the bool value
+// indicating whether it exists with the specified key
 func (e Element) GetAttributeNode(key string) (html.Attribute, bool) {
 	return attr.GetNode(e.Node, key)
 }
 
-// GetAttributeNodeNS
+// GetAttributeNodeNS returns the attribute, and the bool value
+// indicating whether it exists with the specified namespace and key
 func (e Element) GetAttributeNodeNS(namespace, key string) (html.Attribute, bool) {
 	return attr.GetNodeNS(e.Node, namespace, key)
 }
 
-// SetAttribute
+// SetAttribute sets the value of an attribute on the element
 func (e Element) SetAttribute(key string, value string) {
 	attr.Set(e.Node, key, value)
 }
 
-// SetAttributeNode
+// SetAttributeNode sets the attribute.
+// if already exist the key, it attribute overridden
 func (e Element) SetAttributeNode(a html.Attribute) {
 	attr.SetNode(e.Node, a)
 }
 
-// SetAttributeNS
+// SetAttributeNS sets the value of an attribute
+// with the specified namespace and name
 func (e Element) SetAttributeNS(namespace, key, value string) {
 	attr.SetNS(e.Node, namespace, key, value)
 }
 
-// SetAttributeNodeNS
+// SetAttributeNodeNS sets the namespaced attribute node on the element
 func (e Element) SetAttributeNodeNS(a html.Attribute) {
 	attr.SetNodeNS(e.Node, a)
 }
 
-// HasAttributes
+// HasAttributes returns the bool value indicating whether element has attributes
 func (e Element) HasAttributes() bool {
 	return len(e.Node.Attr) > 0
 }
 
-// HasAttribute
+// HasAttribute returns the bool value indicating
+// whether element has an attribute with specified key
 func (e Element) HasAttribute(key string) bool {
 	return attr.Has(e.Node, key)
 }

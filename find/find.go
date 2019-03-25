@@ -44,7 +44,11 @@ func QueryAll(n *html.Node, selector string) []*html.Node {
 	if !ok {
 		return nil
 	}
-	return s.MatchAll(n)
+	v := s.MatchAll(n)
+	if len(v) > 0 && v[0] == n {
+		return v[1:]
+	}
+	return v
 }
 
 // Query
@@ -53,7 +57,14 @@ func Query(n *html.Node, selector string) *html.Node {
 	if !ok {
 		return nil
 	}
-	return s.MatchFirst(n)
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		if utils.IsElement(c) {
+			if v := s.MatchFirst(c); v != nil {
+				return v
+			}
+		}
+	}
+	return nil
 }
 
 // Matcher
