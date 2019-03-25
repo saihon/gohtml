@@ -225,7 +225,7 @@ func Remove(n *html.Node) {
 	}
 }
 
-// Empty
+// Empty remove all of child nodes
 func Empty(n *html.Node) {
 	for c := n.LastChild; c != nil; c = n.LastChild {
 		n.RemoveChild(c)
@@ -326,4 +326,9 @@ func Append(p, c *html.Node) {
 // After insert after end
 func After(pivot, n *html.Node) error {
 	return Insert(Afterend, pivot, n)
+}
+
+// Create create ElementNode from text
+func Create(text string) ([]*html.Node, error) {
+	return html.ParseFragment(strings.NewReader(text), &html.Node{Type: html.ElementNode})
 }
