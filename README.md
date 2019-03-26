@@ -1,6 +1,7 @@
 ## saihon
 
-Go package. Traverse and editing for parsed HTML(DOM tree) with JavaScript-like method name.
+Go package. Traverse and editing for parsed HTML(DOM tree) with JavaScript-like method name.  
+if you think it names to long, you can use some aliases or directly attr/ find/ utils/  
 Documentation: [saihon (godoc.org)](https://godoc.org/github.com/saihon/saihon)
 
 <br/>
@@ -77,10 +78,13 @@ func main() {
     // get
     innerhtml := element.InnerHTML()
 
-
+    // get id
     id := element.HasAttribute("id")
+    // get class name
     classname := element.GetAttribute("class")
+    // set attribute
     element.SetAttribute("key", "value")
+    // remove
     element.RemoveAttribute("key")
 }
 
