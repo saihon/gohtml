@@ -168,9 +168,7 @@ func (d Document) GetElementsByClassName(classname string) Collection {
 
 // QuerySelectorAll find the all elements have specified css selector
 func (d Document) QuerySelectorAll(s string) Collection {
-	var c Collection
-	c.Nodes = find.QueryAll(d.Node, s)
-	return c
+	return Collection{find.QueryAll(d.Node, s)}
 }
 
 // GetElementById find the element have specified id
