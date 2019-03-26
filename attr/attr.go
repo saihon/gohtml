@@ -46,8 +46,8 @@ func Has(n *html.Node, key string) bool {
 	return false
 }
 
-// HasKV
-func HasKV(n *html.Node, key, value string) bool {
+// HasValue returns the bool value whether has value in attribute as assuming no duplicates
+func HasValue(n *html.Node, key, value string) bool {
 	for _, v := range n.Attr {
 		if v.Key == key {
 			return v.Val == value

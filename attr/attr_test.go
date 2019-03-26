@@ -72,7 +72,7 @@ func TestHas(t *testing.T) {
 	}
 }
 
-func TestHasKV(t *testing.T) {
+func TestHasValue(t *testing.T) {
 	n := new(html.Node)
 
 	n.Attr = []html.Attribute{
@@ -82,7 +82,7 @@ func TestHasKV(t *testing.T) {
 	}
 
 	N := 1
-	actual := HasKV(n, fmt.Sprintf("key-%d", N), fmt.Sprintf("value-%d", N))
+	actual := HasValue(n, fmt.Sprintf("key-%d", N), fmt.Sprintf("value-%d", N))
 	if !actual {
 		t.Errorf("\nshould have a key and value\n")
 	}
