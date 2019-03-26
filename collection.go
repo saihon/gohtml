@@ -14,7 +14,10 @@ func (e Collection) Length() int {
 
 // Get returns the "*Element" given index
 func (e Collection) Get(index int) *Element {
-	return &Element{e.Nodes[index]}
+	if len(e.Nodes) > 0 && index < len(e.Nodes) {
+		return &Element{e.Nodes[index]}
+	}
+	return nil
 }
 
 // Enumerator can calls with for..range
