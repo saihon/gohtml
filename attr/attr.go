@@ -46,7 +46,8 @@ func Has(n *html.Node, key string) bool {
 	return false
 }
 
-// HasValue returns the bool value whether has value in attribute as assuming no duplicates
+// HasValue returns true if it element has value of attribute.
+// first matching key of attribute without considering duplicates
 func HasValue(n *html.Node, key, value string) bool {
 	for _, v := range n.Attr {
 		if v.Key == key {
@@ -76,7 +77,7 @@ func HasNS(n *html.Node, namespace, key string) bool {
 	return false
 }
 
-// Get get attribute value
+// Get returns value given key of attribute
 func Get(n *html.Node, key string) string {
 	for _, v := range n.Attr {
 		if v.Key == key {
@@ -205,7 +206,8 @@ func Attr(n *html.Node, a ...string) string {
 	return ""
 }
 
-// AddClass
+// AddClass add given classname to vlaue of class attribute.
+// sets given classname as value of class attribute if has not class attribute
 func AddClass(n *html.Node, classname string) {
 	i := IndexOf(n, "class")
 	if i == -1 {
@@ -229,7 +231,7 @@ func hasClass(value, classname string) bool {
 	return false
 }
 
-// HasClass
+// HasClass returns true if value of class attribute has classname
 func HasClass(n *html.Node, classname string) bool {
 	i := IndexOf(n, "class")
 	if i == -1 {
@@ -244,13 +246,14 @@ func removeClass(value, classname string) string {
 	for i := 0; i < len(a); i++ {
 		if a[i] == classname {
 			a = append(a[:i], a[i+1:]...)
-			break
+			// removes all of given classname if it duplicated
+			i--
 		}
 	}
 	return strings.Join(a, " ")
 }
 
-// RemoveClass
+// RemoveClass removes given classname from the value of class attribute
 func RemoveClass(n *html.Node, classname string) {
 	i := IndexOf(n, "class")
 	if i == -1 {
@@ -260,7 +263,8 @@ func RemoveClass(n *html.Node, classname string) {
 	n.Attr[i].Val = removeClass(n.Attr[i].Val, classname)
 }
 
-// ToggleClass
+// ToggleClass adds given classname if has not class name or
+// removes it classname if already have class name
 func ToggleClass(n *html.Node, classname string) {
 	i := IndexOf(n, "class")
 	if i == -1 {
