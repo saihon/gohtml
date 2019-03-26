@@ -21,9 +21,7 @@ func (d Document) GetByClass(classname string) Collection {
 
 // QueryAll alias `QuerySelectorAll'
 func (d Document) QueryAll(selector string) Collection {
-	var c Collection
-	c.Nodes = find.QueryAll(d.Node, selector)
-	return c
+	return Collection{find.QueryAll(d.Node, selector)}
 }
 
 // GetById alias `GetElementById'
@@ -59,9 +57,7 @@ func (e Element) GetByClass(classname string) Collection {
 
 // QueryAll alias `QuerySelectorAll'
 func (e Element) QueryAll(selector string) Collection {
-	var c Collection
-	c.Nodes = find.QueryAll(e.Node, selector)
-	return c
+	return Collection{find.QueryAll(e.Node, selector)}
 }
 
 // GetById alias `GetElementById'
