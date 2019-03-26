@@ -15,35 +15,35 @@ type Element struct {
 	Node *html.Node
 }
 
-// GetElementsByTagName find the all elements have specified tagname
+// GetElementsByTagName returns find all elements have given tagname
 func (e Element) GetElementsByTagName(tagname string) Collection {
 	var c Collection
 	c.Nodes = find.ByTag(e.Node, tagname)
 	return c
 }
 
-// GetElementsByName find the all elements have specified name
+// GetElementsByName returns find all elements has given name
 func (e Element) GetElementsByName(name string) Collection {
 	var c Collection
 	c.Nodes = find.ByName(e.Node, name)
 	return c
 }
 
-// GetElementsByClassName find the all elements have specified classname
+// GetElementsByClassName returns find all elements has given classname
 func (e Element) GetElementsByClassName(classname string) Collection {
 	var c Collection
 	c.Nodes = find.ByClass(e.Node, classname)
 	return c
 }
 
-// QuerySelectorAll find the all elements have specified css selector
+// QuerySelectorAll returns find all elements has given css selector
 func (e Element) QuerySelectorAll(s string) Collection {
 	var c Collection
 	c.Nodes = find.QueryAll(e.Node, s)
 	return c
 }
 
-// GetElementById find a element have specified id
+// GetElementById returns find an element has given id
 func (e Element) GetElementById(id string) *Element {
 	if n := find.ById(e.Node, id); n != nil {
 		return &Element{Node: n}
@@ -51,7 +51,7 @@ func (e Element) GetElementById(id string) *Element {
 	return nil
 }
 
-// QuerySelector find a element have specified css selector
+// QuerySelector returns find an element have given css selector
 func (e Element) QuerySelector(s string) *Element {
 	if n := find.Query(e.Node, s); n != nil {
 		return &Element{Node: n}
@@ -104,7 +104,7 @@ func (e Element) OuterHTML() string {
 	return utils.HTML(e.Node)
 }
 
-// Children returns all of the child html.ElementNode as the "Collection"
+// Children returns all of child html.ElementNode as "Collection"
 func (e Element) Children() Collection {
 	var nodes []*html.Node
 	for c := e.Node.FirstChild; c != nil; c = c.NextSibling {
@@ -115,7 +115,7 @@ func (e Element) Children() Collection {
 	return Collection{Nodes: nodes}
 }
 
-// ParentElement returns parent node as the "*Element"
+// ParentElement returns parent node as "*Element"
 func (e Element) ParentElement() *Element {
 	if n := utils.Parent(e.Node); n != nil {
 		return &Element{n}
@@ -123,7 +123,7 @@ func (e Element) ParentElement() *Element {
 	return nil
 }
 
-// FirstElementChild returns first html.ElementNode as the "*Element"
+// FirstElementChild returns first html.ElementNode as "*Element"
 func (e Element) FirstElementChild() *Element {
 	if n := utils.First(e.Node); n != nil {
 		return &Element{Node: n}
@@ -136,7 +136,7 @@ func (e Element) ChildElementCount() int {
 	return utils.Count(e.Node)
 }
 
-// NextElementSibling returns next html.ElementNode as the "*Element"
+// NextElementSibling returns next html.ElementNode as "*Element"
 func (e Element) NextElementSibling() *Element {
 	if n := utils.Next(e.Node); n != nil {
 		return &Element{Node: n}
@@ -144,7 +144,7 @@ func (e Element) NextElementSibling() *Element {
 	return nil
 }
 
-// PreviousElementSibling returns previous html.ElementNode as the "*Element"
+// PreviousElementSibling returns previous html.ElementNode as "*Element"
 func (e Element) PreviousElementSibling() *Element {
 	if n := utils.Prev(e.Node); n != nil {
 		return &Element{Node: n}
@@ -152,7 +152,7 @@ func (e Element) PreviousElementSibling() *Element {
 	return nil
 }
 
-// LastElementChild returns last html.ElementNode as the "*Element"
+// LastElementChild returns last html.ElementNode as "*Element"
 func (e Element) LastElementChild() *Element {
 	if n := utils.Last(e.Node); n != nil {
 		return &Element{Node: n}
@@ -160,7 +160,7 @@ func (e Element) LastElementChild() *Element {
 	return nil
 }
 
-// CloneNode clone "*Element"
+// CloneNode returns clone "*Element"
 func (e Element) CloneNode() *Element {
 	if n := utils.Clone(e.Node); n != nil {
 		return &Element{n}
@@ -168,33 +168,41 @@ func (e Element) CloneNode() *Element {
 	return nil
 }
 
-// Remove delete the Element itself
+// Remove delete Element itself
 func (e Element) Remove() {
 	utils.Remove(e.Node)
 }
 
-// RemoveChild remove a given the "*Element"
-// specified c is must be the child of "Element"
+// RemoveChild remove a given "*Element"
+// specified *Element is must be child
 func (e Element) RemoveChild(c *Element) {
 	e.Node.RemoveChild(c.Node)
 }
 
-// ReplaceChild returns a old element. panic if an error
+// ReplaceChild returns old element. panic if an error
 func (e Element) ReplaceChild(newElement, oldElement *Element) *Element {
 	n := utils.Replace(e.Node, newElement.Node, oldElement.Node)
 	return &Element{n}
 }
 
-// AppendChild append "*Element" as a last child
+// AppendChild append "*Element" as last child
 func (e Element) AppendChild(c *Element) {
 	e.Node.AppendChild(c.Node)
 }
 
-// InsertBefore inserts a newElement before the oldElement as a child of a "Element".
+// InsertBefore inserts a newChild before the oldChild as child
 func (e Element) InsertBefore(newChild, oldChild *Element) {
 	e.Node.InsertBefore(newChild.Node, oldChild.Node)
 }
 
+// Position
+// <!-- beforebegin -->
+// <p>
+//   <!-- afterbegin -->
+//   childnodes
+//   <!-- beforeend -->
+// </p>
+// <!-- afterend -->
 type Position int
 
 const (
@@ -202,16 +210,9 @@ const (
 	Afterbegin  = Position(utils.Afterbegin)
 	Beforeend   = Position(utils.Beforeend)
 	Afterend    = Position(utils.Afterend)
-	// <!-- beforebegin -->
-	// <p>
-	//   <!-- afterbegin -->
-	//   childnodes
-	//   <!-- beforeend -->
-	// </p>
-	// <!-- afterend -->
 )
 
-// InsertAdjacentHTML
+// InsertAdjacentHTML inserts text HTML as the html.ElementNode to specified position
 func (e Element) InsertAdjacentHTML(p Position, texthtml string) error {
 	nodes, err := html.ParseFragment(strings.NewReader(texthtml), &html.Node{Type: html.ElementNode})
 	if err != nil {
@@ -225,7 +226,7 @@ func (e Element) InsertAdjacentHTML(p Position, texthtml string) error {
 	return nil
 }
 
-// InsertAdjacentText
+// InsertAdjacentText inserts text as the html.TextNode to specified position
 func (e Element) InsertAdjacentText(p Position, text string) error {
 	n := &html.Node{
 		Type: html.TextNode,
@@ -234,7 +235,7 @@ func (e Element) InsertAdjacentText(p Position, text string) error {
 	return utils.Insert(utils.Position(p), e.Node, n)
 }
 
-// InsertAdjacentElement
+// InsertAdjacentElement inserts element to specified position
 func (e Element) InsertAdjacentElement(p Position, newElement *Element) error {
 	return utils.Insert(utils.Position(p), e.Node, newElement.Node)
 }
@@ -244,7 +245,7 @@ func (e Element) TextContent(text ...string) string {
 	return utils.Text(e.Node, text...)
 }
 
-// InnerText same as above
+// InnerText set or get text to an element
 func (e Element) InnerText(text ...string) string {
 	return utils.Text(e.Node, text...)
 }
@@ -265,12 +266,12 @@ func (e Element) LocalName() string {
 	return ""
 }
 
-// Id get id
+// Id returns id value of attribute or if element not has id empty string
 func (e Element) Id() string {
 	return attr.Get(e.Node, "id")
 }
 
-// ClassName get class name
+// ClassName returns class value of attribute or if element not has class empty string
 func (e Element) ClassName() string {
 	return attr.Get(e.Node, "class")
 }
