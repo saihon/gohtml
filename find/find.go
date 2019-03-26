@@ -102,7 +102,7 @@ func First(node *html.Node, m Matcher) *html.Node {
 // ById
 func ById(n *html.Node, id string) *html.Node {
 	var m Matcher = func(n *html.Node) bool {
-		return utils.IsElement(n) && attr.HasKV(n, "id", id)
+		return utils.IsElement(n) && attr.HasValue(n, "id", id)
 	}
 	return First(n, m)
 }
@@ -122,7 +122,7 @@ func ByTag(n *html.Node, tag string) []*html.Node {
 // ByClass
 func ByClass(n *html.Node, className string) []*html.Node {
 	var m Matcher = func(n *html.Node) bool {
-		return utils.IsElement(n) && attr.HasKV(n, "class", className)
+		return utils.IsElement(n) && attr.HasClass(n, className)
 	}
 	return All(n, m)
 }
@@ -130,7 +130,7 @@ func ByClass(n *html.Node, className string) []*html.Node {
 // ByName
 func ByName(n *html.Node, name string) []*html.Node {
 	var m Matcher = func(n *html.Node) bool {
-		return utils.IsElement(n) && attr.HasKV(n, "name", name)
+		return utils.IsElement(n) && attr.HasValue(n, "name", name)
 	}
 	return All(n, m)
 }
