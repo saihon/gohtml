@@ -196,13 +196,15 @@ func (e Element) InsertBefore(newChild, oldChild *Element) {
 }
 
 // Position
-// <!-- beforebegin -->
-// <p>
-//   <!-- afterbegin -->
-//   childnodes
-//   <!-- beforeend -->
-// </p>
-// <!-- afterend -->
+/*
+<!-- beforebegin -->
+<p>
+  <!-- afterbegin -->
+  childnodes
+  <!-- beforeend -->
+</p>
+<!-- afterend -->
+*/
 type Position int
 
 const (

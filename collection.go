@@ -18,9 +18,7 @@ func (e Collection) Get(index int) *Element {
 }
 
 // Enumerator can calls with for..range
-// for element := range elements.Enumerator() {
-//		element...
-// }
+// for element := range elements.Enumerator()...
 func (e Collection) Enumerator() chan *Element {
 	ch := make(chan *Element, 1)
 	go e.enumeration(ch)
