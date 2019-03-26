@@ -1,6 +1,7 @@
 ## saihon
 
 Go package. Traverse and editing for parsed HTML(DOM tree) with JavaScript-like method name.
+Documentation: [saihon (godoc.org)](https://godoc.org/github.com/saihon/saihon)
 
 <br/>
 
@@ -22,6 +23,8 @@ import (
 
 func main() {
     text := "<html><head></head><body></body></html>"
+    
+    // parse from text HTML
     document, err := saihon.Parse(strings.NewReader(text))
     if err != nil {
        return
