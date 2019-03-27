@@ -204,6 +204,69 @@ func TestLast(t *testing.T) {
 	}
 }
 
+func TestLastDescendent(t *testing.T) {
+	s := `<html><head></head><body><div><p></p><p><span></span></p></div></body></html>`
+
+	doc, _ := html.Parse(strings.NewReader(s))
+	body, err := getbody(doc)
+	if err != nil {
+		t.Errorf("\n%v\n", err)
+		return
+	}
+
+	last := LastDescendant(body)
+
+	if last.DataAtom != atom.Span {
+		t.Errorf("\nlast descendents is should be <span>\n")
+	}
+}
+
+func TestCloneAll(t *testing.T) {
+	expect := `<body>foo<div><p>bar</p><span class="span"></span>baz</div></body>`
+	s := `<html><head></head>` + expect + `</html>`
+
+	doc, _ := html.Parse(strings.NewReader(s))
+	body, err := getbody(doc)
+	if err != nil {
+		t.Errorf("\n%v\n", err)
+		return
+	}
+
+	_body := CloneAll(body)
+	actual := HTML(_body)
+	if actual != expect {
+		t.Errorf("\ngot : %s\nwant: %s\n", actual, expect)
+	}
+}
+
+func TestWrap(t *testing.T) {
+	s := `<html><head></head><body><a></a></body></html>`
+
+	doc, _ := html.Parse(strings.NewReader(s))
+	body, err := getbody(doc)
+	if err != nil {
+		t.Errorf("\n%v\n", err)
+		return
+	}
+
+	anchor := body.FirstChild
+	nodes, _ := Create("<ul><li><p></p></li></ul>")
+	wrapper := nodes[0]
+	for _, node := range nodes[1:] {
+		wrapper.AppendChild(node)
+	}
+
+	if err := Wrap(anchor, wrapper); err != nil {
+		t.Errorf("\nerror: %v\n", err)
+	}
+
+	expect := `<body><ul><li><p><a></a></p></li></ul></body>`
+	actual := HTML(body)
+	if actual != expect {
+		t.Errorf("\ngot : %s\nwant: %s\n", actual, expect)
+	}
+}
+
 func TestRemove(t *testing.T) {
 	s := `<html><head></head><body><div><p></p><span></span></div></body></html>`
 

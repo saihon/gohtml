@@ -218,6 +218,56 @@ func Clone(n *html.Node) *html.Node {
 	return node
 }
 
+// LastDescendant if FirstChild is nil returns given html.Node
+func LastDescendant(n *html.Node) *html.Node {
+	c := Last(n)
+	if c == nil {
+		return n
+	}
+
+	for c != nil {
+		if _c := Last(c); _c == nil {
+			break
+		} else {
+			c = _c
+		}
+	}
+	return c
+}
+
+// CloneAll clone while keeping all descendents
+func CloneAll(n *html.Node) *html.Node {
+	parent := Clone(n)
+	cloneall(parent, n)
+	return parent
+}
+
+func cloneall(parent, original *html.Node) {
+	for c := original.FirstChild; c != nil; c = c.NextSibling {
+		_c := Clone(c)
+		Append(parent, _c)
+		cloneall(_c, c)
+	}
+}
+
+// Wrap wraps html.Node of the first argument specified
+func Wrap(node, wrapper *html.Node) error {
+	w := CloneAll(wrapper)
+	last := LastDescendant(w)
+
+	n, err := Create(HTML(node))
+	if err != nil {
+		return err
+	}
+	for _, nn := range n {
+		Append(last, nn)
+	}
+
+	Before(node, w)
+	Remove(node)
+	return nil
+}
+
 // Remove
 func Remove(n *html.Node) {
 	if p := Parent(n); p != nil {
