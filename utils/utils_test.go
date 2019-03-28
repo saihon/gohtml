@@ -267,6 +267,43 @@ func TestWrap(t *testing.T) {
 	}
 }
 
+func TestWrapAll(t *testing.T) {
+	s := `<html><head></head><body><li><a>foo</a></li><li><a>bar</a></li><li><a>baz</a></li></body></html>`
+
+	doc, _ := html.Parse(strings.NewReader(s))
+	body, err := getbody(doc)
+	if err != nil {
+		t.Errorf("\n%v\n", err)
+		return
+	}
+
+	var li []*html.Node
+	var f func(*html.Node)
+	f = func(node *html.Node) {
+		for c := node.FirstChild; c != nil; c = c.NextSibling {
+			if IsElement(c) && c.DataAtom == atom.Li {
+				li = append(li, c)
+			}
+			f(c)
+		}
+	}
+	f(body)
+
+	w, _ := Create(`<div class="wrapall"><ul></ul></div>`)
+	wrapper := w[0]
+	for _, n := range w[1:] {
+		Append(wrapper, n)
+	}
+
+	WrapAll(li, wrapper)
+
+	expect := `<body><div class="wrapall"><ul><li><a>foo</a></li><li><a>bar</a></li><li><a>baz</a></li></ul></div></body>`
+	actual := HTML(body)
+	if actual != expect {
+		t.Errorf("\ngot : %s\nwant: %s\n", actual, expect)
+	}
+}
+
 func TestRemove(t *testing.T) {
 	s := `<html><head></head><body><div><p></p><span></span></div></body></html>`
 

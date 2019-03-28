@@ -268,6 +268,27 @@ func Wrap(node, wrapper *html.Node) error {
 	return nil
 }
 
+// WrapAll wraps given nodes of the first argument by node of second argument
+func WrapAll(nodes []*html.Node, wrapper *html.Node) error {
+	if len(nodes) == 0 {
+		return errors.New("given slice of the nodes is empty")
+	}
+
+	// if parent is nil inserts to "Afterend" position
+	if Parent(wrapper) == nil {
+		After(nodes[len(nodes)-1], wrapper)
+	}
+
+	last := LastDescendant(wrapper)
+	for _, n := range nodes {
+		c := CloneAll(n)
+		Append(last, c)
+		Remove(n)
+	}
+
+	return nil
+}
+
 // Remove
 func Remove(n *html.Node) {
 	if p := Parent(n); p != nil {
