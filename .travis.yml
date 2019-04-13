@@ -1,0 +1,11 @@
+language: go
+go:
+  - tip
+env:
+  global:
+    - GO111MODULE=on
+sudo: false
+branches:
+  only: master
+script:
+  - make test

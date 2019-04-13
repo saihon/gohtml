@@ -1,14 +1,11 @@
 ## saihon
 
-Go package. Traverse and editing for parsed HTML(DOM tree) with JavaScript-like method name.  
+Go package. Traverse and editing for parsed HTML with JavaScript-like method name.  
 if you think it names to long, you can use some aliases or directly attr/ find/ utils/  
-Documentation: [saihon (godoc.org)](https://godoc.org/github.com/saihon/saihon)
 
 <br/>
 
-This package is using the following packages:
-- [golang.org/x/net/html](https://golang.org/x/net/html)
-- [github.com/andybalholm/cascadia](https://github.com/andybalholm/cascadia)
+[![Build Status](https://travis-ci.org/saihon/saihon.svg?branch=master)](https://travis-ci.org/saihon/saihon) [![GoDoc](https://godoc.org/github.com/saihon/saihon?status.svg)](https://godoc.org/github.com/saihon/saihon)
 
 <br>
 <br>
