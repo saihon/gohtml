@@ -1,7 +1,6 @@
 ## saihon
 
-Go package. Traverse and editing for parsed HTML with JavaScript-like method name.  
-if you think it names to long, you can use some aliases or directly attr/ find/ utils/  
+JavaScript-like HTML parser for Go language.
 
 <br/>
 

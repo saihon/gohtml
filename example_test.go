@@ -1,7 +1,11 @@
 package saihon_test
 
 import (
+	"bytes"
 	"fmt"
+	"log"
+	"net/http"
+	"os"
 	"strings"
 
 	"github.com/saihon/saihon"
@@ -20,7 +24,7 @@ func Example() {
 
 	doc, err := saihon.Parse(strings.NewReader(text))
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 
 	v := doc.GetElementById("id")
@@ -64,7 +68,9 @@ func Example() {
 		element := collection.Get(i)
 		fmt.Println(element.InnerText())
 	}
+	//
 	// or
+	//
 	for element := range collection.Enumerator() {
 		fmt.Println(element.OuterHTML())
 	}
@@ -72,37 +78,58 @@ func Example() {
 	utils.Empty(body.Node)
 }
 
-func ExampleParse() {
-
-	// Text HTML
+// This example shows how to use parse from string
+func ExampleParse_string() {
 	text := `<html><head></head><body></body></html>`
 
 	document, err := saihon.Parse(strings.NewReader(text))
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 
 	fmt.Println(document.Title())
+}
 
-	//
-	//
-	// []byte:
-	// saihon.Parse(bytes.NewReader(b))
-	//
+// This example shows how to use parse from bytes
+func ExampleParse_bytes() {
+	text := []byte(`<html><head></head><body></body></html>`)
 
-	//
-	// File:
-	//
-	// fp, _ := os.Open("index.html")
-	// saihon.Parse(fp)
-	// fp.Close()
-	//
+	document, err := saihon.Parse(bytes.NewReader(text))
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	//
-	// HTTP Response:
-	//
-	// resp, _ := http.Get("example.com")
-	// saihon.Parse(resp.Body)
-	// resp.Body.Close()
-	//
+	fmt.Println(document.Title())
+}
+
+// This example shows how to use parse from file
+func ExampleParse_file() {
+	fp, err := os.Open("index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer fp.Close()
+
+	document, err := saihon.Parse(fp)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(document.Title())
+}
+
+// This example shows how to use parse from http response
+func ExampleParse_httpresponse() {
+	resp, err := http.Get("https://example.com")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+
+	document, err := saihon.Parse(resp.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(document.Title())
 }
