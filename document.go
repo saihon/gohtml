@@ -61,7 +61,7 @@ func (d Document) Title() string {
 		return utils.IsElement(n) && n.DataAtom == atom.Title
 	}
 	if n := find.First(d.Node, m); n != nil {
-		return n.Data
+		return utils.Text(n)
 	}
 	return ""
 }
