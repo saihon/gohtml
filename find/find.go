@@ -12,7 +12,7 @@ import (
 var (
 	// Whether cache use in Query and QueryAll
 	// when using in multi thread maybe better set a false
-	CacheEnabled = true
+	CacheEnabled = false
 	cache        map[string]cascadia.Selector
 )
 
