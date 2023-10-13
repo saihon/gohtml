@@ -3,8 +3,8 @@
 JavaScript-like HTML parser for Go language.
 
 <br/>
-
-[![Build Status](https://travis-ci.org/saihon/saihon.svg?branch=master)](https://travis-ci.org/saihon/saihon) [![GoDoc](https://godoc.org/github.com/saihon/saihon?status.svg)](https://godoc.org/github.com/saihon/saihon)
+[![Test]](https://github.com/saihon/saihon/actions/workflows/test.yml/badge.svg)](https://github.com/saihon/saihon/actions/workflows/test.yml)
+[![GoDoc](https://godoc.org/github.com/saihon/saihon?status.svg)](https://godoc.org/github.com/saihon/saihon)
 
 <br>
 <br>
@@ -84,21 +84,6 @@ func main() {
     element.RemoveAttribute("key")
 }
 
-
-```
-
-<br>
-
-#### alias
-
-```go
-
-    GetByTag  : GetElementsByTagName
-    GetByName : GetElementsByName
-    GetByClass: GetElementsByClassName
-    GetById   : GetElementById
-    QueryAll  : QuerySelectorAll
-    Query     : QuerySelector
 
 ```
 
