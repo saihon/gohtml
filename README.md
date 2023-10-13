@@ -3,7 +3,7 @@
 JavaScript-like HTML parser for Go language.
 
 <br/>
-[![Test](https://github.com/saihon/saihon/actions/workflows/go.yml/badge.svg)](https://github.com/saihon/saihon/actions/workflows/test.yml)
+[![Test](https://github.com/saihon/saihon/actions/workflows/go.yml/badge.svg)](https://github.com/saihon/saihon/actions/workflows/go.yml)
 [![GoDoc](https://pkg.go.dev/badge/github.com/saihon/saihon)](https://godoc.org/github.com/saihon/saihon)
 
 <br>
