@@ -4,7 +4,7 @@ JavaScript-like HTML parser for Go language.
 
 <br/>
 
-[![Build Status](https://travis-ci.org/saihon/saihon.svg?branch=master)](https://travis-ci.org/saihon/saihon) [![GoDoc](https://godoc.org/github.com/saihon/saihon?status.svg)](https://godoc.org/github.com/saihon/saihon)
+[![GoDoc](https://pkg.go.dev/badge/github.com/saihon/saihon)](https://pkg.go.dev/github.com/saihon/saihon) [![Test](https://github.com/saihon/saihon/actions/workflows/go.yml/badge.svg)](https://github.com/saihon/saihon/actions/workflows/go.yml)
 
 <br>
 <br>
@@ -20,7 +20,7 @@ import (
 
 func main() {
     text := "<html><head></head><body></body></html>"
-    
+
     // parse from text HTML
     document, err := saihon.Parse(strings.NewReader(text))
     if err != nil {
@@ -84,21 +84,6 @@ func main() {
     element.RemoveAttribute("key")
 }
 
-
-```
-
-<br>
-
-#### alias
-
-```go
-
-    GetByTag  : GetElementsByTagName
-    GetByName : GetElementsByName
-    GetByClass: GetElementsByClassName
-    GetById   : GetElementById
-    QueryAll  : QuerySelectorAll
-    Query     : QuerySelector
 
 ```
 
