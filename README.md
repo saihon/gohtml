@@ -1,6 +1,6 @@
 ## saihon
 
-JavaScript-like HTML parser for Go language.
+JavaScript-like HTML parser for Go language. HTML parsers exist for each programming language, but their usage differs. This package can use natural if know the JavaScript.
 
 <br/>
 
@@ -21,7 +21,7 @@ import (
 func main() {
     text := "<html><head></head><body></body></html>"
 
-    // parse from text HTML
+    // Parse text HTML
     document, err := saihon.Parse(strings.NewReader(text))
     if err != nil {
        return
@@ -40,20 +40,19 @@ func main() {
 
     element := document.GetElementById("id")
     element = document.QuerySelector("div > p")
-    // should be verified
+    // Must be check if element is nil.
     if element != nil {
         textcontent := element.TextContent()
         // ...
     }
 
-
-    // returns collection
+    // Get HTML collection
     elements := document.GetElementsByClassName("class")
     elements = document.QuerySelectorAll("div > p")
     elements = document.GetElementsByName("name")
     elements = document.GetElementsByTagName("p")
 
-    // each element
+    // Each element
     for i := 0; i < elements.Length(); i++ {
         outerhtml := elements.Get(i).OuterHTML()
         // ...
@@ -64,28 +63,30 @@ func main() {
         // ...
     }
 
-
-    // set
+    // Set text content
     element.TextContent("hello")
-    // get
+    // Get text content
     textcontent := element.TextContent()
-    // set
+    // Set HTML
     element.InnerHTML("<p>hello</p>")
-    // get
+    // Get
     innerhtml := element.InnerHTML()
 
-    // get id
+    // Get id attribute
     id := element.HasAttribute("id")
-    // get class name
+    // Get class name attribute
     classname := element.GetAttribute("class")
-    // set attribute
+    // Set attribute
     element.SetAttribute("key", "value")
-    // remove
+    // Remove attribute
     element.RemoveAttribute("key")
 }
 
-
 ```
+
+[godoc]:https://pkg.go.dev/github.com/saihon/saihon
+
+For more detailed documentation is [here][godoc].
 
 <br>
 
