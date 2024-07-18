@@ -34,3 +34,11 @@ func (e Collection) enumeration(ch chan *Element) {
 	}
 	close(ch)
 }
+
+type ForEachFunc = func(value *Element, index int, collection Collection)
+
+func (e Collection) ForEach(fn ForEachFunc) {
+	for i := 0; i < len(e.Nodes); i++ {
+		fn(&Element{e.Nodes[i]}, i, Collection{Nodes: e.Nodes})
+	}
+}
