@@ -68,12 +68,6 @@ func Example() {
 		element := collection.Get(i)
 		fmt.Println(element.InnerText())
 	}
-	//
-	// or
-	//
-	for element := range collection.Enumerator() {
-		fmt.Println(element.OuterHTML())
-	}
 
 	utils.Empty(body.Node)
 }

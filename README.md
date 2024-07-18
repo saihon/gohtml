@@ -42,7 +42,7 @@ func main() {
     element = document.QuerySelector("div > p")
     // Must be check if element is nil.
     if element != nil {
-        textcontent := element.TextContent()
+        textContent := element.TextContent()
         // ...
     }
 
@@ -52,30 +52,36 @@ func main() {
     elements = document.GetElementsByName("name")
     elements = document.GetElementsByTagName("p")
 
-    // Each element
+    // for loop (Recommended because fast)
     for i := 0; i < elements.Length(); i++ {
-        outerhtml := elements.Get(i).OuterHTML()
+        outerHtml := elements.Get(i).OuterHTML()
         // ...
     }
     // or 
     for element := range elements.Enumerator() {
-        outerhtml := element.OuterHTML()
+        outerHtml := element.OuterHTML()
         // ...
     }
+    // or 
+    elements.ForEach(func(element *Element, index int, collection Collection) {
+        outerHtml := element.OuterHTML()
+        // ...
+    })
+
 
     // Set text content
     element.TextContent("hello")
     // Get text content
-    textcontent := element.TextContent()
+    textContent := element.TextContent()
     // Set HTML
     element.InnerHTML("<p>hello</p>")
     // Get
-    innerhtml := element.InnerHTML()
+    innerHtml := element.InnerHTML()
 
     // Get id attribute
     id := element.HasAttribute("id")
     // Get class name attribute
-    classname := element.GetAttribute("class")
+    className := element.GetAttribute("class")
     // Set attribute
     element.SetAttribute("key", "value")
     // Remove attribute
