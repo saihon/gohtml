@@ -1,4 +1,4 @@
-package saihon_test
+package gohtml_test
 
 import (
 	"bytes"
@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/saihon/saihon"
-	"github.com/saihon/saihon/utils"
+	"github.com/saihon/gohtml"
+	"github.com/saihon/gohtml/utils"
 )
 
 func Example() {
@@ -22,7 +22,7 @@ func Example() {
 </body>
 </html>`
 
-	doc, err := saihon.Parse(strings.NewReader(text))
+	doc, err := gohtml.Parse(strings.NewReader(text))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,9 +47,9 @@ func Example() {
 	body.RemoveChild(v)
 
 	// create element
-	div := saihon.CreateElement("div")
+	div := gohtml.CreateElement("div")
 	// create text node
-	textnode := saihon.CreateTextNode("hello world")
+	textnode := gohtml.CreateTextNode("hello world")
 	div.AppendChild(textnode)
 	body.AppendChild(div)
 
@@ -57,8 +57,8 @@ func Example() {
 	div.Remove()
 
 	for _, v := range []string{"foo", "bar", "baz"} {
-		p := saihon.CreateElement("p")
-		t := saihon.CreateTextNode(v)
+		p := gohtml.CreateElement("p")
+		t := gohtml.CreateTextNode(v)
 		p.AppendChild(t)
 		body.AppendChild(p)
 	}
@@ -76,7 +76,7 @@ func Example() {
 func ExampleParse_string() {
 	text := `<html><head></head><body></body></html>`
 
-	document, err := saihon.Parse(strings.NewReader(text))
+	document, err := gohtml.Parse(strings.NewReader(text))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -88,7 +88,7 @@ func ExampleParse_string() {
 func ExampleParse_bytes() {
 	text := []byte(`<html><head></head><body></body></html>`)
 
-	document, err := saihon.Parse(bytes.NewReader(text))
+	document, err := gohtml.Parse(bytes.NewReader(text))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -104,7 +104,7 @@ func ExampleParse_file() {
 	}
 	defer fp.Close()
 
-	document, err := saihon.Parse(fp)
+	document, err := gohtml.Parse(fp)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -120,7 +120,7 @@ func ExampleParse_httpresponse() {
 	}
 	defer resp.Body.Close()
 
-	document, err := saihon.Parse(resp.Body)
+	document, err := gohtml.Parse(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 	}

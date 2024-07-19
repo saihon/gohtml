@@ -1,4 +1,4 @@
-package saihon
+package gohtml
 
 import (
 	"regexp"
@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/net/html"
 
-	"github.com/saihon/saihon/attr"
+	"github.com/saihon/gohtml/attr"
 )
 
 // Attributes returns all attributes on the element

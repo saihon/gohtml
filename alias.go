@@ -1,7 +1,7 @@
-package saihon
+package gohtml
 
 import (
-	"github.com/saihon/saihon/find"
+	"github.com/saihon/gohtml/find"
 )
 
 // Deprecated: GetByTag alias `GetElementsByTagName'

@@ -1,13 +1,13 @@
-package saihon
+package gohtml
 
 import (
 	"strings"
 
 	"golang.org/x/net/html"
 
-	"github.com/saihon/saihon/attr"
-	"github.com/saihon/saihon/find"
-	"github.com/saihon/saihon/utils"
+	"github.com/saihon/gohtml/attr"
+	"github.com/saihon/gohtml/find"
+	"github.com/saihon/gohtml/utils"
 )
 
 // Element

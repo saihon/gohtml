@@ -5,8 +5,8 @@ import (
 	"golang.org/x/net/html/atom"
 
 	"github.com/andybalholm/cascadia"
-	"github.com/saihon/saihon/attr"
-	"github.com/saihon/saihon/utils"
+	"github.com/saihon/gohtml/attr"
+	"github.com/saihon/gohtml/utils"
 )
 
 var (

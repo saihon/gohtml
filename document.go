@@ -1,4 +1,4 @@
-package saihon
+package gohtml
 
 import (
 	"io"
@@ -7,9 +7,9 @@ import (
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
 
-	"github.com/saihon/saihon/attr"
-	"github.com/saihon/saihon/find"
-	"github.com/saihon/saihon/utils"
+	"github.com/saihon/gohtml/attr"
+	"github.com/saihon/gohtml/find"
+	"github.com/saihon/gohtml/utils"
 )
 
 type Document Element

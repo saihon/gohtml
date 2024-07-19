@@ -1,4 +1,4 @@
-module github.com/saihon/saihon
+module github.com/saihon/gohtml
 
 go 1.22.5
 

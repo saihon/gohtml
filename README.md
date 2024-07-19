@@ -1,10 +1,10 @@
-## saihon
+## gohtml
 
-JavaScript-like HTML parser for Go language. HTML parsers exist for each programming language, but their usage differs. This package can use natural if know the JavaScript.
+JavaScript-like HTML parser for Go language. If function names, etc. are the same as in JavaScript, it will be easier for JavaScript users to use.
 
 <br/>
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/saihon/saihon)](https://pkg.go.dev/github.com/saihon/saihon) [![Test](https://github.com/saihon/saihon/actions/workflows/go.yml/badge.svg)](https://github.com/saihon/saihon/actions/workflows/go.yml)
+[![GoDoc](https://pkg.go.dev/badge/github.com/saihon/gohtml)](https://pkg.go.dev/github.com/saihon/gohtml) [![Test](https://github.com/saihon/gohtml/actions/workflows/go.yml/badge.svg)](https://github.com/saihon/gohtml/actions/workflows/go.yml)
 
 <br>
 <br>
@@ -15,14 +15,14 @@ JavaScript-like HTML parser for Go language. HTML parsers exist for each program
 ```go
 
 import (
-    "github.com/saihon/saihon"
+    "github.com/saihon/gohtml"
 )
 
 func main() {
     text := "<html><head></head><body></body></html>"
 
     // Parse text HTML
-    document, err := saihon.Parse(strings.NewReader(text))
+    document, err := gohtml.Parse(strings.NewReader(text))
     if err != nil {
        return
     }
@@ -90,7 +90,7 @@ func main() {
 
 ```
 
-[godoc]:https://pkg.go.dev/github.com/saihon/saihon
+[godoc]:https://pkg.go.dev/github.com/saihon/gohtml
 
 For more detailed documentation is [here][godoc].
 
@@ -99,7 +99,7 @@ For more detailed documentation is [here][godoc].
 
 ## License
 
-[MIT License](https://github.com/saihon/saihon/blob/master/LICENSE)
+[MIT License](https://github.com/saihon/gohtml/blob/master/LICENSE)
 
 <br>
 <br>
